@@ -1,0 +1,8 @@
+===== L1 =====
+ > Slides/handouts/demos: "http://github.com/jonhare/COMP3005"
+ > Explore colour-spaces with "org.openimaj.image.colour.ColourSpace" class
+
+===== L2 =====
+ > OpenIMAJ Tutorial Chapter 3
+ > "org.openimaj.ml.annotation.basic.KNNAnnotator"
+ > "org.openimaj.ml.annotation.linear.LiblinearAnnotator"

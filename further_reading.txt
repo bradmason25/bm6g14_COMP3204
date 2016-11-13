@@ -1,0 +1,11 @@
+===== L1 =====
+ > White Papers on lighting for industrial vision: "http://www.ni.com/white-paper/6901/en/"
+ > Further information on HSV (and some alternatives) colour-space, including code: "http://archive.is/NEzmQ"
+ > Mark's Book: Appendix 4 covers colour images and colour-spaces
+
+===== L2 =====
+ > Mark's Book: pg424-429
+ > Wiki KNN "http://en.wikipedia.org/wiki/K_nearest_neighbours_algorithm"
+ > Wiki K-means "http://en.wikipedia.org/wiki/K_means_clustering"
+ > Wiki Perceptron "http://en.wikipedia.org/wiki/Perceptron"
+ > Wiki Vectors "http://en.wikipedia.org/wiki/Euclidean_vector"
