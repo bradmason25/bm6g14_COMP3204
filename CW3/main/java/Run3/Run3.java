@@ -49,13 +49,16 @@ public class Run3 {
 	
 	Run3() {
 		startTime = System.currentTimeMillis();
+		System.out.println((System.currentTimeMillis()-startTime)+"ms - Starting");
 		try {
+			//##### If you intend to use this code make sure you set the directories below correctly
+			
+			System.out.println((System.currentTimeMillis()-startTime)+"ms - Gathering Files");			//Collect the training and testing images from the directories
 			//trainingImages = new VFSGroupDataset<FImage>("C:/Users/brad/OpenIMAJ_CW3/training", ImageUtilities.FIMAGE_READER);
 			trainingImages = new VFSGroupDataset<FImage>("/home/brad/OpenIMAJ_Coursework3/training", ImageUtilities.FIMAGE_READER);
 			//testData = new VFSListDataset<FImage>("C:/Users/brad/OpenIMAJ_CW3/testing", ImageUtilities.FIMAGE_READER);
 			testData = new VFSListDataset<FImage>("/home/brad/OpenIMAJ_Coursework3/testing", ImageUtilities.FIMAGE_READER);
-			out = new PrintWriter("run3.txt");
-			System.out.println((System.currentTimeMillis()-startTime)+"ms - Gathered Files");
+			out = new PrintWriter("run3.txt");															//Also starts the print writer for the result file
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -63,31 +66,29 @@ public class Run3 {
 	
 	public static void main(String[] args) {
 		Run3 r = new Run3();
-		r.classifyImages();
+		r.classifyImages();									//Start an instance of this class running
 	}
 
 	public void classifyImages() {
-		 phow = new PHOW(trainingImages, startTime);
+		 phow = new PHOW(trainingImages, startTime);		//Create a new image feature extractor
 		
 		
-		FileObject[] files = testData.getFileObjects();
+		FileObject[] files = testData.getFileObjects();		//This is needed to output the filenames to the file
 		String result;
-		for(int i=0; i<testData.size(); i++) {
-			result = files[i].getName().getBaseName()+" "+collateVotes(testData.get(i));
+		for(int i=0; i<testData.size(); i++) {				//Loops through the images in the testing set
+			result = files[i].getName().getBaseName()+" "+collateVotes(testData.get(i));		//Runs the voting algorithm below and stores the result to a file
 			out.println(result);
-			System.out.println(result);
+			System.out.println(result);															//Output to the terminal for debugging
 		}
-		out.close();
+		out.close();										//Don't forget to close the print writer to flush the output
 		System.out.println((System.currentTimeMillis()-startTime)+"ms - Finished");
 	}
 	
 	
 	private String collateVotes(FImage f) {
-		HashMap<String, Integer> votes = new HashMap<String, Integer>();
-		ArrayList<String> newVotes = new ArrayList<String>();
-		newVotes.add(phow.getLinearVote(f));
-		newVotes.add(phow.getNaiveBayesVote(f));
-		for(String vote: newVotes) {
+		HashMap<String, Integer> votes = new HashMap<String, Integer>();		//Hash map of the classes and the number of votes it has
+		ArrayList<String> newVotes = phow.getVotes(f);							//Collects votes from the feature extractor with the different classifiers
+		for(String vote: newVotes) {											//Loops through the votes and counts them in the hash map
 			try {
 				votes.put(vote, votes.get(vote)+1);
 			} catch(Exception e) {
@@ -97,14 +98,14 @@ public class Run3 {
 		
 		int max = 0;
 		String maxS = "";
-		for(String c: votes.keySet()) {
-			if(votes.get(c)>max) {
+		for(String c: votes.keySet()) {											//Loop through the hash map to find the most voted
+			if(votes.get(c)>max) {												//If there is a draw this just uses the first one
 				maxS = c;
 				max = votes.get(c);
 			}
 		}
 		
-		return maxS;
+		return maxS;															//Returns the most voted for
 	}
 	
 	
