@@ -8,6 +8,7 @@ import org.openimaj.data.dataset.GroupedDataset;
 import org.openimaj.data.dataset.ListDataset;
 import org.openimaj.data.dataset.VFSGroupDataset;
 import org.openimaj.experiment.dataset.split.GroupedRandomSplitter;
+import org.openimaj.experiment.evaluation.classification.Classifier;
 import org.openimaj.feature.DoubleFV;
 import org.openimaj.feature.FeatureExtractor;
 import org.openimaj.feature.FeatureVector;
@@ -20,8 +21,8 @@ import org.openimaj.image.feature.dense.gradient.dsift.DenseSIFT;
 import org.openimaj.image.feature.dense.gradient.dsift.PyramidDenseSIFT;
 import org.openimaj.image.feature.local.aggregate.BagOfVisualWords;
 import org.openimaj.image.feature.local.aggregate.BlockSpatialAggregator;
+import org.openimaj.ml.annotation.bayes.NaiveBayesAnnotator;
 import org.openimaj.ml.annotation.linear.LiblinearAnnotator;
-import org.openimaj.ml.annotation.linear.LiblinearAnnotator.Mode;
 import org.openimaj.ml.clustering.ByteCentroidsResult;
 import org.openimaj.ml.clustering.assignment.HardAssigner;
 import org.openimaj.ml.clustering.kmeans.ByteKMeans;
@@ -29,38 +30,55 @@ import org.openimaj.ml.kernel.HomogeneousKernelMap;
 import org.openimaj.ml.kernel.HomogeneousKernelMap.KernelType;
 import org.openimaj.ml.kernel.HomogeneousKernelMap.WindowType;
 import org.openimaj.util.pair.IntFloatPair;
+//import org.openimaj.ml.annotation.bayes.NaiveBayesAnnotator.Mode;
+//import org.openimaj.ml.annotation.linear.LiblinearAnnotator.Mode;
 
-import Run3.Run3.PHOWExtractor;
 import de.bwaldvogel.liblinear.SolverType;
 
 public class PHOW {
 	VFSGroupDataset<FImage> trainingImages;
-	LiblinearAnnotator<FImage, String> ann;
+	LiblinearAnnotator<FImage, String> llann;
+	NaiveBayesAnnotator<FImage, String> nbann;
+	long startTime;
 
-	PHOW(VFSGroupDataset<FImage> trainingImages) {
+	PHOW(VFSGroupDataset<FImage> trainingImages, long startTime) {
+		this.startTime = startTime;
 		this.trainingImages = trainingImages;
 		
 		GroupedRandomSplitter<String, FImage> splits = new GroupedRandomSplitter<String, FImage>(trainingImages, 15, 0, 15);
 		
 		DenseSIFT dsift = new DenseSIFT(5, 7);
 		PyramidDenseSIFT<FImage> pdsift = new PyramidDenseSIFT<FImage>(dsift, 6f, 7);
+		System.out.println((System.currentTimeMillis()-startTime)+"ms - Created PyramidDenseSIFT");
 		
+		System.out.println((System.currentTimeMillis()-startTime)+"ms - Training Quantiser");
 		HardAssigner<byte[], float[], IntFloatPair> assigner = trainQuantiser(splits.getTrainingDataset(), pdsift);
+		System.out.println((System.currentTimeMillis()-startTime)+"ms - Done");
 		
 		FeatureExtractor<DoubleFV, FImage> extractor = new PHOWExtractor(pdsift, assigner);
 		
 		HomogeneousKernelMap hkm = new HomogeneousKernelMap(KernelType.Chi2, WindowType.Rectangular);
 		FeatureExtractor<? extends FeatureVector, FImage> wrappedExtractor = hkm.createWrappedExtractor(extractor);
+		System.out.println((System.currentTimeMillis()-startTime)+"ms - Wrapped Extractor");
 		
 		//The use of the wrapped extractor took slightly longer but did return higher accuracy compared to the previous extractor
 		
 		
-		ann = new LiblinearAnnotator<FImage, String>(wrappedExtractor, Mode.MULTICLASS, SolverType.L2R_L2LOSS_SVC, 1.0, 0.00001);
-		ann.train(splits.getTrainingDataset());
+		//ann = new LiblinearAnnotator<FImage, String>(wrappedExtractor, Mode.MULTICLASS, SolverType.L2R_L2LOSS_SVC, 1.0, 0.00001);
+		llann = new LiblinearAnnotator<FImage, String>(extractor, org.openimaj.ml.annotation.linear.LiblinearAnnotator.Mode.MULTICLASS, SolverType.L2R_L2LOSS_SVC, 1.0, 0.00001);
+		nbann = new NaiveBayesAnnotator<FImage, String>(wrappedExtractor, org.openimaj.ml.annotation.bayes.NaiveBayesAnnotator.Mode.ALL);
+		
+		System.out.println((System.currentTimeMillis()-startTime)+"ms - Training LibLinearAnnotator");
+		llann.train(splits.getTrainingDataset());
+		System.out.println((System.currentTimeMillis()-startTime)+"ms - Training NaiveBayesAnnotator");
+		nbann.train(splits.getTrainingDataset());
 	}
 	
-	public String getVote(FImage f) {
-		return ann.classify(f).getPredictedClasses().iterator().next();
+	public String getLinearVote(FImage f) {
+		return llann.classify(f).getPredictedClasses().iterator().next();
+	}
+	public String getNaiveBayesVote(FImage f) {
+		return nbann.classify(f).getPredictedClasses().iterator().next();
 	}
 	
 	static HardAssigner<byte[], float[], IntFloatPair> trainQuantiser(GroupedDataset<String, ListDataset<FImage>, FImage> groupedDataset, PyramidDenseSIFT<FImage> pdsift)

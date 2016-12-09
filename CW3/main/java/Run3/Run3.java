@@ -45,13 +45,17 @@ public class Run3 {
 	PrintWriter out;
 	LiblinearAnnotator<FImage, String> ann;
 	PHOW phow;
-	GIST gist;
+	long startTime;
 	
 	Run3() {
+		startTime = System.currentTimeMillis();
 		try {
-			trainingImages = new VFSGroupDataset<FImage>("C:/Users/brad/OpenIMAJ_CW3/training", ImageUtilities.FIMAGE_READER);
-			testData = new VFSListDataset<FImage>("C:/Users/brad/OpenIMAJ_CW3/testing", ImageUtilities.FIMAGE_READER);
+			//trainingImages = new VFSGroupDataset<FImage>("C:/Users/brad/OpenIMAJ_CW3/training", ImageUtilities.FIMAGE_READER);
+			trainingImages = new VFSGroupDataset<FImage>("/home/brad/OpenIMAJ_Coursework3/training", ImageUtilities.FIMAGE_READER);
+			//testData = new VFSListDataset<FImage>("C:/Users/brad/OpenIMAJ_CW3/testing", ImageUtilities.FIMAGE_READER);
+			testData = new VFSListDataset<FImage>("/home/brad/OpenIMAJ_Coursework3/testing", ImageUtilities.FIMAGE_READER);
 			out = new PrintWriter("run3.txt");
+			System.out.println((System.currentTimeMillis()-startTime)+"ms - Gathered Files");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -63,8 +67,7 @@ public class Run3 {
 	}
 
 	public void classifyImages() {
-		 phow = new PHOW(trainingImages);
-		 gist = new GIST(trainingImages);
+		 phow = new PHOW(trainingImages, startTime);
 		
 		
 		FileObject[] files = testData.getFileObjects();
@@ -75,16 +78,21 @@ public class Run3 {
 			System.out.println(result);
 		}
 		out.close();
+		System.out.println((System.currentTimeMillis()-startTime)+"ms - Finished");
 	}
 	
 	
 	private String collateVotes(FImage f) {
 		HashMap<String, Integer> votes = new HashMap<String, Integer>();
-		String curVote = phow.getVote(f);
-		try {
-			votes.put(curVote, votes.get(curVote)+1);
-		} catch(Exception e) {
-			votes.put(curVote, 1);
+		ArrayList<String> newVotes = new ArrayList<String>();
+		newVotes.add(phow.getLinearVote(f));
+		newVotes.add(phow.getNaiveBayesVote(f));
+		for(String vote: newVotes) {
+			try {
+				votes.put(vote, votes.get(vote)+1);
+			} catch(Exception e) {
+				votes.put(vote, 1);
+			}
 		}
 		
 		int max = 0;
