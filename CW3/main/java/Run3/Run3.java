@@ -1,5 +1,6 @@
 package Run3;
 
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,9 +41,10 @@ import org.openimaj.util.pair.IntFloatPair;
 import de.bwaldvogel.liblinear.SolverType;
 
 public class Run3 {
-	static VFSListDataset<FImage> testData;
+	VFSListDataset<FImage> testData;
 	VFSGroupDataset<FImage> trainingImages;
 	PrintWriter out;
+	PrintWriter log;
 	LiblinearAnnotator<FImage, String> ann;
 	PHOW phow;
 	long startTime;
@@ -70,31 +72,51 @@ public class Run3 {
 	}
 
 	public void classifyImages() {
-		 phow = new PHOW(trainingImages, startTime);		//Create a new image feature extractor
+		System.out.println((System.currentTimeMillis()-startTime)+"ms - Creating the classifier");
+		phow = new PHOW(trainingImages, startTime);		//Create a new image feature extractor
+		
+		System.out.println((System.currentTimeMillis()-startTime)+"ms - Evaluating Classifier");
+		float accuracy = evaluate(trainingImages);
+		System.out.println("Boasting a accuracy of: "+accuracy);
+		try {
+			log = new PrintWriter("log.txt");
+			log.println(accuracy);
+			log.close();
+		} catch (FileNotFoundException e) {}
 		
 		
 		FileObject[] files = testData.getFileObjects();		//This is needed to output the filenames to the file
 		String result;
-		for(int i=0; i<testData.size(); i++) {				//Loops through the images in the testing set
+		System.out.println((System.currentTimeMillis()-startTime)+"ms - Processing Images");
+		//for(int i=0; i<testData.size(); i++) {				//Loops through the images in the testing set
+		for(int i=0; i<0; i++) {
 			result = files[i].getName().getBaseName()+" "+collateVotes(testData.get(i));		//Runs the voting algorithm below and stores the result to a file
 			out.println(result);
-			System.out.println(result);															//Output to the terminal for debugging
+			System.out.println((System.currentTimeMillis()-startTime)+" - "+result);			//Output to the terminal for debugging
 		}
 		out.close();										//Don't forget to close the print writer to flush the output
 		System.out.println((System.currentTimeMillis()-startTime)+"ms - Finished");
 	}
 	
-	
-	private String collateVotes(FImage f) {
-		HashMap<String, Integer> votes = new HashMap<String, Integer>();		//Hash map of the classes and the number of votes it has
-		ArrayList<String> newVotes = phow.getVotes(f);							//Collects votes from the feature extractor with the different classifiers
-		for(String vote: newVotes) {											//Loops through the votes and counts them in the hash map
-			try {
-				votes.put(vote, votes.get(vote)+1);
-			} catch(Exception e) {
-				votes.put(vote, 1);
+
+	public float evaluate(VFSGroupDataset<FImage> images) {
+		GroupedRandomSplitter<String, FImage> splits = new GroupedRandomSplitter<String, FImage>(trainingImages, 15, 0, 15);
+		int total = 0;
+		int correct = 0;
+		for(String key: splits.getTestDataset().keySet()) {
+			for(FImage f: splits.getTestDataset().getInstances(key)) {
+				total++;
+				if(collateVotes(f).equals(key)) {
+					correct++;
+				}
 			}
 		}
+		System.out.println(correct+" out of "+total);
+		return (float) correct/total;
+	}
+	
+	private String collateVotes(FImage f) {
+		HashMap<String, Integer> votes = phow.getVotes(f);						//Hash map of the classes and the number of votes it has
 		
 		int max = 0;
 		String maxS = "";

@@ -1,6 +1,9 @@
 package Run3;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.openimaj.data.DataSource;
@@ -20,8 +23,6 @@ import org.openimaj.image.feature.dense.gradient.dsift.DenseSIFT;
 import org.openimaj.image.feature.dense.gradient.dsift.PyramidDenseSIFT;
 import org.openimaj.image.feature.local.aggregate.BagOfVisualWords;
 import org.openimaj.image.feature.local.aggregate.BlockSpatialAggregator;
-import org.openimaj.ml.annotation.bayes.NaiveBayesAnnotator;
-import org.openimaj.ml.annotation.linear.LiblinearAnnotator;
 import org.openimaj.ml.clustering.ByteCentroidsResult;
 import org.openimaj.ml.clustering.assignment.HardAssigner;
 import org.openimaj.ml.clustering.kmeans.ByteKMeans;
@@ -30,24 +31,70 @@ import org.openimaj.ml.kernel.HomogeneousKernelMap.KernelType;
 import org.openimaj.ml.kernel.HomogeneousKernelMap.WindowType;
 import org.openimaj.util.pair.IntFloatPair;
 
-import de.bwaldvogel.liblinear.SolverType;
-//import org.openimaj.ml.annotation.bayes.NaiveBayesAnnotator.Mode;
-//import org.openimaj.ml.annotation.linear.LiblinearAnnotator.Mode;
 
 public class PHOW {
+	/*
+	 * This class builds the feature extractor, sets up the individual classifiers and organises their votes
+	 * 
+	 * In the constructor I set up the boiler plate code that uses OpenIMAJ classes to create a feature extractor
+	 * Specifically the Pyramid Dense SIFT with a Homogenous kernel map
+	 * It produces and trains the classifier and also evaluates them to generate a weighting
+	 * 
+	 */
+	
+	
+	
+	
 	VFSGroupDataset<FImage> trainingImages;
-	LibLinear llann;
-	NaiveBayes nbann;
+	ArrayList<Classifier> annotators = new ArrayList<>();
 	long startTime;
 	float llweight;
 	float nbweight;
+	float svmweight;
+	float pweight;
+	PrintWriter log;
 
 	PHOW(VFSGroupDataset<FImage> trainingImages, long startTime) {
+		try {
+			log = new PrintWriter("log.txt");
+			log.println("Augmented Data");
+		} catch (FileNotFoundException e) {}
+		
 		this.startTime = startTime;
 		this.trainingImages = trainingImages;
 		
 		GroupedRandomSplitter<String, FImage> splits = new GroupedRandomSplitter<String, FImage>(trainingImages, 15, 0, 15);	//Splitter for evaluating the model
 		
+		FeatureExtractor<? extends FeatureVector, FImage> extractor = getExtractor(splits);
+		
+		annotators.add(new LibLinear(extractor));
+		annotators.add(new NaiveBayes(extractor));
+		annotators.add(new SVM(extractor));
+		annotators.add(new Patches());
+		
+		trainAnnotators(annotators, splits.getTrainingDataset());
+		
+		evaluateAnnotators(annotators, splits.getTestDataset());
+		
+		log.close();
+		
+	}
+	
+	private void trainAnnotators(ArrayList<Classifier> classifiers, GroupedDataset<String,ListDataset<FImage>, FImage> dataset) {
+		for(Classifier c: classifiers) {
+			c.train(dataset);
+		}
+	}
+	
+	private void evaluateAnnotators(ArrayList<Classifier> classifiers,GroupedDataset<String,ListDataset<FImage>, FImage> dataset) {
+		for(Classifier c: classifiers) {
+			float weight = c.evaluate(dataset);
+			c.setWeight(weight);
+			log.println(c.name+": "+weight);
+		}
+	}
+	
+	private FeatureExtractor<? extends FeatureVector, FImage> getExtractor(GroupedRandomSplitter<String, FImage> splits) {
 		System.out.println((System.currentTimeMillis()-startTime)+"ms - Creating PyramidDenseSIFT");
 		DenseSIFT dsift = new DenseSIFT(5, 7);
 		PyramidDenseSIFT<FImage> pdsift = new PyramidDenseSIFT<FImage>(dsift, 6f, 7);										//Created a Pyramid Dense SIFT
@@ -60,29 +107,14 @@ public class PHOW {
 		
 		System.out.println((System.currentTimeMillis()-startTime)+"ms - Wrapping Extractor");
 		HomogeneousKernelMap hkm = new HomogeneousKernelMap(KernelType.Chi2, WindowType.Rectangular);
-		FeatureExtractor<? extends FeatureVector, FImage> wrappedExtractor = hkm.createWrappedExtractor(extractor); 		//Wraps extractor in a homogenous kernel map
-		
-		llann = new LibLinear(wrappedExtractor);																			//Create classifiers of the types to vote
-		nbann = new NaiveBayes(wrappedExtractor);
-		
-		System.out.println((System.currentTimeMillis()-startTime)+"ms - Training LibLinearAnnotator");
-		llann.train(splits.getTrainingDataset());																			//Train the classifiers
-		System.out.println((System.currentTimeMillis()-startTime)+"ms - Training NaiveBayesAnnotator");
-		nbann.train(splits.getTrainingDataset());
-		
-		llweight = llann.evaluate(splits.getTestDataset());								//Evaluate the classifiers and make their vote weighting the accuracy
-		nbweight = nbann.evaluate(splits.getTestDataset());
+		return hkm.createWrappedExtractor(extractor); 																		//Wraps extractor in a homogenous kernel map
 	}
 	
-	public ArrayList<String> getVotes(FImage f) {
-		ArrayList<String> votes = new ArrayList<String>();
-		for(int i=0; i<llweight*100;i++) {												//Add a vote for each classifier times each of their weightings in %
-			votes.add(llann.getVote(f));
+	public HashMap<String, Integer> getVotes(FImage f) {
+		HashMap<String, Integer> votes = new HashMap<String, Integer>();
+		for(Classifier c: annotators) {										//Here I create hash maps of the votes from each classifier
+			votes.put(c.getVote(f), (int) (c.getWeight()*100));				//The number of votes depends on the accuracy of the classifier acting as weighting
 		}
-		for(int i=0;i<nbweight*100;i++) {
-			votes.add(nbann.getVote(f));
-		}
-		
 		return votes;
 	}
 	
@@ -97,11 +129,11 @@ public class PHOW {
 	        allkeys.add(pdsift.getByteKeypoints(0.005f));
 	    }
 	    
-	    int siftFeatures = 100;//10000
+	    int siftFeatures = 10000;//10000
 	    if (allkeys.size() > siftFeatures)
 	        allkeys = allkeys.subList(0, siftFeatures);
 
-	    ByteKMeans km = ByteKMeans.createKDTreeEnsemble(3);//300
+	    ByteKMeans km = ByteKMeans.createKDTreeEnsemble(300);//300
 	    DataSource<byte[]> datasource = new LocalFeatureListDataSource<ByteDSIFTKeypoint, byte[]>(allkeys);
 	    ByteCentroidsResult result = km.cluster(datasource);
 
