@@ -46,8 +46,10 @@ public class Run3 {
 	PrintWriter out;
 	PrintWriter log;
 	LiblinearAnnotator<FImage, String> ann;
-	PHOW phow;
+	ClasificationVoteAgregator phow;
 	long startTime;
+	String TRAINING_DATA_DIR = "/home/brad/OpenIMAJ_Coursework3/training";
+	String TESTING_DATA_DIR = "/home/brad/OpenIMAJ_Coursework3/testing";
 	
 	Run3() {
 		startTime = System.currentTimeMillis();
@@ -57,9 +59,9 @@ public class Run3 {
 			
 			System.out.println((System.currentTimeMillis()-startTime)+"ms - Gathering Files");			//Collect the training and testing images from the directories
 			//trainingImages = new VFSGroupDataset<FImage>("C:/Users/brad/OpenIMAJ_CW3/training", ImageUtilities.FIMAGE_READER);
-			trainingImages = new VFSGroupDataset<FImage>("/home/brad/OpenIMAJ_Coursework3/training", ImageUtilities.FIMAGE_READER);
+			trainingImages = new VFSGroupDataset<FImage>(TRAINING_DATA_DIR, ImageUtilities.FIMAGE_READER);
 			//testData = new VFSListDataset<FImage>("C:/Users/brad/OpenIMAJ_CW3/testing", ImageUtilities.FIMAGE_READER);
-			testData = new VFSListDataset<FImage>("/home/brad/OpenIMAJ_Coursework3/testing", ImageUtilities.FIMAGE_READER);
+			testData = new VFSListDataset<FImage>(TESTING_DATA_DIR, ImageUtilities.FIMAGE_READER);
 			out = new PrintWriter("run3.txt");															//Also starts the print writer for the result file
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,8 +74,10 @@ public class Run3 {
 	}
 
 	public void classifyImages() {
+		
+		
 		System.out.println((System.currentTimeMillis()-startTime)+"ms - Creating the classifier");
-		phow = new PHOW(trainingImages, startTime);		//Create a new image feature extractor
+		phow = new ClasificationVoteAgregator(trainingImages, startTime);		//Create a new image feature extractor
 		
 		System.out.println((System.currentTimeMillis()-startTime)+"ms - Evaluating Classifier");
 		float accuracy = evaluate(trainingImages);

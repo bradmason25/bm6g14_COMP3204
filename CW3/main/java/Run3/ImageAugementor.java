@@ -18,6 +18,9 @@ import org.openimaj.io.IOUtils;
 
 public class ImageAugementor {
 	String targetDir = "";
+	/* Asks the user to provide a root directory and then augments all images within subdirectories
+	 * Creating: zoomed/rotated/cropped/flipped images
+	 */
 	public static void main(String args[])
 	{
 		new ImageAugementor();

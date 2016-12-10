@@ -9,6 +9,10 @@ import org.openimaj.ml.annotation.bayes.NaiveBayesAnnotator;
 import org.openimaj.ml.annotation.bayes.NaiveBayesAnnotator.Mode;
 
 public class NaiveBayes extends Classifier{
+	/* Implementation of the classifier using the naive Bayes annotator
+	 * 
+	 */
+	
 	NaiveBayesAnnotator<FImage, String> annotator;
 	NaiveBayes(FeatureExtractor<? extends FeatureVector, FImage> extractor) {
 		annotator = new NaiveBayesAnnotator<FImage, String>(extractor, Mode.ALL);				//Initialise the naive bayes annotator

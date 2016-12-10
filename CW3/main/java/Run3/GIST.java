@@ -29,6 +29,11 @@ import org.openimaj.util.pair.IntFloatPair;
 import Run3.PHOW.PHOWExtractor;
 
 public class GIST {
+	
+	/* <Not fully implemented, do not use>
+	 * GIST feature extractor for analysing images which creates
+	 * a hard assigner
+	 */
 	VFSGroupDataset<FImage> trainingImages;
 	LiblinearAnnotator<FImage, String> ann;
 	

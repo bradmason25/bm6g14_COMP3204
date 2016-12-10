@@ -8,6 +8,8 @@ import org.openimaj.ml.annotation.linear.LiblinearAnnotator;
 public class Patches extends Classifier{
 	LiblinearAnnotator<FImage, String> annotator;
 	
+	//Implementation of the classifier class with the DSPP annotator implementation
+	
 	Patches() {
 		annotator = null;
 		name = "Patches";

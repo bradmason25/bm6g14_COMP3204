@@ -36,6 +36,7 @@ public class DenselySampledPixelPatches {
 	// Uses the given assigner to generate a histogram for the given image
 	class DenselySampledPixelPatchExtractor implements
 			FeatureExtractor<SparseIntFV, FImage> {
+		//inner class to provide feature extration for the pixelpatch classifier
 		HardAssigner<float[], float[], IntFloatPair> assigner;
 		int binSize, stepSize;
 
@@ -64,6 +65,7 @@ public class DenselySampledPixelPatches {
 
 	String initialiseLog() throws FileNotFoundException,
 			UnsupportedEncodingException {
+		//creates the file needed for logging output and starts a timer for analysing performance
 		timer = new Timer();
 		timer.start();
 		String now = String.valueOf(new Date().getTime());
@@ -80,6 +82,7 @@ public class DenselySampledPixelPatches {
 	}
 
 	void logln(String txt) {
+		//store the given string in the log file
 		txt = Strings.padStart(String.valueOf(timer.duration()), 10, ' ') + " "
 				+ txt;
 		log.println(txt);

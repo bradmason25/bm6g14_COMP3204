@@ -9,7 +9,7 @@ import org.openimaj.image.ImageUtilities;
 import org.openimaj.io.InputStreamObjectReader;
 
 public class IdentifiableFImageReader implements InputStreamObjectReader<IdentifiableObject<FImage>> {
-	
+	//Wrapper class that allows FImages to be identifiable
 	@Override
 	public IdentifiableObject<FImage> read( InputStream source ) throws IOException {
 		FImage img = ImageUtilities.FIMAGE_READER.read( source );
