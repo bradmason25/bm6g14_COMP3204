@@ -6,9 +6,12 @@ import org.openimaj.image.FImage;
 import org.openimaj.ml.annotation.linear.LiblinearAnnotator;
 
 public class Patches extends Classifier{
-	LiblinearAnnotator<FImage, String> annotator;
+
+	/*
+	 * Implementation of the classifier class with the DSPP annotator implementation
+	 */
 	
-	//Implementation of the classifier class with the DSPP annotator implementation
+	LiblinearAnnotator<FImage, String> annotator;
 	
 	Patches() {
 		annotator = null;
@@ -16,7 +19,7 @@ public class Patches extends Classifier{
 	}
 	
 	public void train(GroupedDataset<String, ListDataset<FImage>, FImage> dataset) {
-		annotator = new DenselySampledPixelPatches().getAnnotator(dataset);															//Train the classifier
+		annotator = new DenselySampledPixelPatches().createAnnotator(dataset, 8, 4, 10000);						//Train the classifier
 	}
 	
 	

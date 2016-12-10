@@ -12,23 +12,22 @@ import org.openimaj.image.FImage;
 
 public abstract class Classifier {
 	
-	/* base class to provide functionality for evaluating classifiers and providing getters for properties
-	 * uses the classification evaluator summary to retrieve accuracy %
+	/*
+	 * Base class to provide functionality for evaluating classifiers and providing getters for properties
+	 * Uses the classification evaluator summary to retrieve accuracy %
 	 */
-	
 	org.openimaj.experiment.evaluation.classification.Classifier<String, FImage> annotator;
 	float weight = 0.01f;
 	String name;
 	public abstract void train(GroupedDataset<String, ListDataset<FImage>, FImage> dataset);
 	
 	public String getVote(FImage f) {
-		//return the class most likely to match the image
+		//Return the class most likely to match the image
 		return annotator.classify(f).getPredictedClasses().iterator().next();														//Get the predicted class for an image
 	}
 	
 	public float evaluate(GroupedDataset<String, ? extends ListDataset<FImage>, FImage> dataset) {
-		//return a float that represents the accuracy % for the classifier
-		
+		//Return a float that represents the accuracy % for the classifier
 		ClassificationEvaluator<CMResult<String>, String, FImage> eval = 
 				new ClassificationEvaluator<CMResult<String>, String, FImage>(annotator, dataset, new CMAnalyser<FImage, String>(CMAnalyser.Strategy.SINGLE));	//Produce an evaluator
 		

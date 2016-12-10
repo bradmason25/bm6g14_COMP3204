@@ -14,11 +14,11 @@ import org.openimaj.image.FImage;
 import org.openimaj.image.ImageUtilities;
 import org.openimaj.image.processing.resize.ResizeProcessor;
 import org.openimaj.image.processing.transform.AffineSimulation;
-import org.openimaj.io.IOUtils;
 
 public class ImageAugementor {
 	String targetDir = "";
-	/* Asks the user to provide a root directory and then augments all images within subdirectories
+	/*
+	 * Asks the user to provide a root directory and then augments all the images within sub-directories
 	 * Creating: zoomed/rotated/cropped/flipped images
 	 */
 	public static void main(String args[])

@@ -12,8 +12,8 @@ import de.bwaldvogel.liblinear.SolverType;
 
 public class LibLinear extends Classifier{
 	/*
-	 * classifier implementation using the liblinear annotator
-	 * using tuned values for C and epsilon
+	 * Classifier implementation using the liblinear annotator
+	 * Using tuned values for C and epsilon
 	 */
 	
 	LiblinearAnnotator<FImage, String> annotator;
