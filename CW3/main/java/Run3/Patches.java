@@ -12,7 +12,6 @@ public class Patches extends Classifier{
 	 */
 	
 	LiblinearAnnotator<FImage, String> annotator;
-	
 	Patches() {
 		annotator = null;
 		name = "Patches";
@@ -20,6 +19,11 @@ public class Patches extends Classifier{
 	
 	public void train(GroupedDataset<String, ListDataset<FImage>, FImage> dataset) {
 		annotator = new DenselySampledPixelPatches().createAnnotator(dataset, 8, 4, 10000);						//Train the classifier
+	}
+
+	@Override
+	protected org.openimaj.experiment.evaluation.classification.Classifier<String, FImage> getAnnotator() {
+		return annotator;
 	}
 	
 	

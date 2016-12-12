@@ -1,0 +1,21 @@
+13:05:59 - Starting
+13:06:01 - Creating Classifier
+13:06:01 - Using Augmented Data
+13:06:01 - Creating PyramidDenseSIFT
+13:06:01 - Training Quantiser
+13:07:19 - Done
+13:07:19 - Wrapping Extractor
+13:07:19 - Creating Classifiers
+13:07:19 - Training Classifiers
+13:07:19 - Training Lib Linear
+13:08:33 - Training Naive Bayes
+13:09:47 - Training Patches
+13:11:52 - Evaluating Classifiers
+13:11:52 - Evaluating Lib Linear
+13:13:09 - Lib Linear Accuracy: 0.236
+13:13:09 - Evaluating Naive Bayes
+13:14:25 - Naive Bayes Accuracy: 0.236
+13:14:25 - Evaluating Patches
+13:15:36 - Patches Accuracy: 0.578
+13:19:20 - Overall Accuracy 0.5777778
+14:09:52 - Finished

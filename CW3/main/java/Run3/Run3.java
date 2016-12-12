@@ -1,6 +1,5 @@
 package Run3;
 
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
@@ -16,25 +15,22 @@ public class Run3 {
 	VFSListDataset<FImage> testData;
 	VFSGroupDataset<FImage> trainingImages;
 	PrintWriter out;
-	PrintWriter log;
+	Log log;
 	LiblinearAnnotator<FImage, String> ann;
 	ClassificationVoteAggregator phow;
-	long startTime;
 	GroupedRandomSplitter<String, FImage> splits;
 	String TRAINING_DATA_DIR = "/home/brad/OpenIMAJ_Coursework3/training_aug";
 	String TESTING_DATA_DIR = "/home/brad/OpenIMAJ_Coursework3/testing";
 	
 	public Run3() {
-		startTime = System.currentTimeMillis();
-		System.out.println((System.currentTimeMillis()-startTime)+"ms - Starting");
 		try {
 			//##### If you intend to use this code make sure you set the directories correctly
-			
-			System.out.println((System.currentTimeMillis()-startTime)+"ms - Gathering Files");			//Collect the training and testing images from the directories
-			trainingImages = new VFSGroupDataset<FImage>(TRAINING_DATA_DIR, ImageUtilities.FIMAGE_READER);
+			log = new Log("run3_"+System.currentTimeMillis()+".txt");
+			log.log("Starting");	
+			trainingImages = new VFSGroupDataset<FImage>(TRAINING_DATA_DIR, ImageUtilities.FIMAGE_READER); //Collect the training and testing images from the directories
 			testData = new VFSListDataset<FImage>(TESTING_DATA_DIR, ImageUtilities.FIMAGE_READER);
 			
-			splits = new GroupedRandomSplitter<String, FImage>(trainingImages, 450, 0, 50);
+			splits = new GroupedRandomSplitter<String, FImage>(trainingImages, 15, 0, 15);
 			
 			out = new PrintWriter("run3.txt");															//Also starts the print writer for the result file
 		} catch (Exception e) {
@@ -48,30 +44,26 @@ public class Run3 {
 	}
 
 	public void classifyImages() {
-		System.out.println((System.currentTimeMillis()-startTime)+"ms - Creating the classifier");
-		phow = new ClassificationVoteAggregator(splits.getTrainingDataset(), splits.getTestDataset(), startTime);		//Create a new image feature extractor
-		
-		System.out.println((System.currentTimeMillis()-startTime)+"ms - Evaluating Classifier");
+		log.log("Creating Classifier");
+		phow = new ClassificationVoteAggregator(splits.getTrainingDataset(), splits.getTestDataset(), log);		//Create a new image feature extractor
+		log.log("Evaluating Classifier");
 		float accuracy = evaluate(trainingImages);
 		System.out.println("Boasting an accuracy of: "+accuracy);
-		try {
-			log = new PrintWriter("log.txt");
-			log.println(accuracy);
-			log.close();
-		} catch (FileNotFoundException e) {}
+		log.log("Overall Accuracy: "+accuracy);
 		
 		
 		FileObject[] files = testData.getFileObjects();		//This is needed to output the filenames to the file
 		String result;
-		System.out.println((System.currentTimeMillis()-startTime)+"ms - Processing Images");
+		log.log("Processing Images");
 		for(int i=0; i<testData.size(); i++) {				//Loops through the images in the testing set
 		//for(int i=0; i<0; i++) {
 			result = files[i].getName().getBaseName()+" "+collateVotes(testData.get(i));		//Runs the voting algorithm below and stores the result to a file
 			out.println(result);
-			System.out.println((System.currentTimeMillis()-startTime)+" - "+result);			//Output to the terminal for debugging
+			log.log(result);																	//Output to the terminal for debugging
 		}
 		out.close();										//Don't forget to close the print writer to flush the output
-		System.out.println((System.currentTimeMillis()-startTime)+"ms - Finished");
+		log.log("Finished");
+		log.close();
 	}
 	
 

@@ -23,4 +23,9 @@ public class NaiveBayes extends Classifier{
 	public void train(GroupedDataset<String,ListDataset<FImage>, FImage> dataset) {
 		annotator.train(dataset);																//Train the classifier
 	}
+
+	@Override
+	protected org.openimaj.experiment.evaluation.classification.Classifier<String, FImage> getAnnotator() {
+		return annotator;
+	}
 }

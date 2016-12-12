@@ -15,7 +15,6 @@ public class LibLinear extends Classifier{
 	 * Classifier implementation using the liblinear annotator
 	 * Using tuned values for C and epsilon
 	 */
-	
 	LiblinearAnnotator<FImage, String> annotator;
 	LibLinear(FeatureExtractor<? extends FeatureVector, FImage> extractor) {
 		annotator = new LiblinearAnnotator<FImage, String>(extractor, Mode.MULTICLASS, SolverType.L2R_L2LOSS_SVC, 1.0, 0.00001);	//Initialise the lib linear annotator
@@ -24,5 +23,10 @@ public class LibLinear extends Classifier{
 	
 	public void train(GroupedDataset<String,ListDataset<FImage>, FImage> dataset) {
 		annotator.train(dataset);																									//Train the classifier
+	}
+
+	@Override
+	protected org.openimaj.experiment.evaluation.classification.Classifier<String, FImage> getAnnotator() {
+		return annotator;
 	}
 }

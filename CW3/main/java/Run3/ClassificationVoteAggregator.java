@@ -1,7 +1,5 @@
 package Run3;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,33 +44,32 @@ public class ClassificationVoteAggregator {
 	GroupedDataset<String,ListDataset<FImage>, FImage> trainingImages;
 	GroupedDataset<String,ListDataset<FImage>, FImage> testingImages;
 	ArrayList<Classifier> annotators = new ArrayList<>();
-	long startTime;
 	float llweight;
 	float nbweight;
 	float svmweight;
 	float pweight;
-	PrintWriter log;
+	Log log;
 
-	ClassificationVoteAggregator(GroupedDataset<String,ListDataset<FImage>, FImage> trainingImages, GroupedDataset<String,ListDataset<FImage>, FImage> testingImages, long startTime) {
+	ClassificationVoteAggregator(GroupedDataset<String,ListDataset<FImage>, FImage> trainingImages, GroupedDataset<String,ListDataset<FImage>, FImage> testingImages, Log log) {
+		this.log = log;
 		//This function gets the training data set and creates the annotators which are then evaluated
-		try {
-			log = new PrintWriter("log.txt");
-			log.println("Augmented Data");
-		} catch (FileNotFoundException e) {}
+		log.log("Using Augmented Data");
 		
-		this.startTime = startTime;
 		this.trainingImages = trainingImages;
 		this.testingImages = testingImages;
 		
 		FeatureExtractor<? extends FeatureVector, FImage> extractor = getExtractor(trainingImages);
 		
+		log.log("Creating Classifiers");
 		annotators.add(new LibLinear(extractor));
 		annotators.add(new NaiveBayes(extractor));
-		annotators.add(new SVM(extractor));
+		//annotators.add(new SVM(extractor));
 		annotators.add(new Patches());
 		
+		log.log("Training Classifiers");
 		trainAnnotators(annotators, trainingImages);
 		
+		log.log("Evaluating Classifiers");
 		evaluateAnnotators(annotators, testingImages);
 		
 		log.close();
@@ -82,6 +79,7 @@ public class ClassificationVoteAggregator {
 	private void trainAnnotators(ArrayList<Classifier> classifiers, GroupedDataset<String,ListDataset<FImage>, FImage> dataset) {
 		//Takes the given list of classifier and trains them
 		for(Classifier c: classifiers) {
+			log.log("Training "+c.name);
 			c.train(dataset);
 		}
 	}
@@ -89,26 +87,29 @@ public class ClassificationVoteAggregator {
 	private void evaluateAnnotators(ArrayList<Classifier> classifiers,GroupedDataset<String,ListDataset<FImage>, FImage> dataset) {
 		//Evaluate the annotator performance so that we can weight the effective vote
 		for(Classifier c: classifiers) {
+			System.out.println(c);
+			log.log("Evaluating "+c.name);
+			//System.out.println(dataset.getRandomInstance());
 			float weight = c.evaluate(dataset);
 			c.setWeight(weight);
-			log.println(c.name+": "+weight);
+			log.log(c.name+" Accuracy: "+weight);
 		}
 	}
 	
 	private FeatureExtractor<? extends FeatureVector, FImage> getExtractor(GroupedDataset<String,ListDataset<FImage>, FImage> trainingImages) {
 		//Generates the dense sift feature extractor using the tuned values from the image set
 		//The dense features are quantised by the assigner
-		System.out.println((System.currentTimeMillis()-startTime)+"ms - Creating PyramidDenseSIFT");
+		log.log("Creating PyramidDenseSIFT");
 		DenseSIFT dsift = new DenseSIFT(5, 7);
 		PyramidDenseSIFT<FImage> pdsift = new PyramidDenseSIFT<FImage>(dsift, 6f, 7);										//Created a Pyramid Dense SIFT
 		
-		System.out.println((System.currentTimeMillis()-startTime)+"ms - Training Quantiser");
+		log.log("Training Quantiser");
 		HardAssigner<byte[], float[], IntFloatPair> assigner = trainQuantiser(trainingImages, pdsift);			//Trains Pyramid Dense SIFT with K Means Clustering
-		System.out.println((System.currentTimeMillis()-startTime)+"ms - Done");
+		log.log("Done");
 		
 		FeatureExtractor<DoubleFV, FImage> extractor = new PHOWExtractor(pdsift, assigner);									//Creates a new instance of PHOW extractor below
 		
-		System.out.println((System.currentTimeMillis()-startTime)+"ms - Wrapping Extractor");
+		log.log("Wrapping Extractor");
 		HomogeneousKernelMap hkm = new HomogeneousKernelMap(KernelType.Chi2, WindowType.Rectangular);
 		return hkm.createWrappedExtractor(extractor); 																		//Wraps extractor in a homogenous kernel map
 	}
@@ -116,8 +117,15 @@ public class ClassificationVoteAggregator {
 	public HashMap<String, Integer> getVotes(FImage f) {
 		//Score the votes for each classification label
 		HashMap<String, Integer> votes = new HashMap<String, Integer>();
-		for(Classifier c: annotators) {										//Here I create hash maps of the votes from each classifier
-			votes.put(c.getVote(f), (int) (c.getWeight()*100));				//The number of votes depends on the accuracy of the classifier acting as weighting
+		for(Classifier c: annotators) {									//Here I create hash maps of the votes from each classifier
+			String vote = c.getVote(f, log);
+			int weight = (int) (c.getWeight()*100);
+			if(votes.containsKey(vote)){								//If the predicted class has not yet been voted for create a new vote
+				votes.put(vote, weight+votes.get(vote));				//The number of votes depends on the accuracy of the classifier acting as weighting
+			}
+			else {
+				votes.put(vote, weight);
+			}
 		}
 		return votes;
 	}
@@ -134,11 +142,11 @@ public class ClassificationVoteAggregator {
 	        allkeys.add(pdsift.getByteKeypoints(0.005f));
 	    }
 	    
-	    int siftFeatures = 10000;//10000
+	    int siftFeatures = 100;//10000
 	    if (allkeys.size() > siftFeatures)
 	        allkeys = allkeys.subList(0, siftFeatures);
 
-	    ByteKMeans km = ByteKMeans.createKDTreeEnsemble(300);//300
+	    ByteKMeans km = ByteKMeans.createKDTreeEnsemble(3);//300
 	    DataSource<byte[]> datasource = new LocalFeatureListDataSource<ByteDSIFTKeypoint, byte[]>(allkeys);
 	    ByteCentroidsResult result = km.cluster(datasource);
 
