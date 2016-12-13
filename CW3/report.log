@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/Debian) (preloaded format=xelatex 2016.11.10)  12 DEC 2016 14:08
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/Debian) (preloaded format=xelatex 2016.11.10)  13 DEC 2016 11:10
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -81,54 +81,63 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 ]
 File: images/augment.jpg Graphic file (type QTm)
  <use  "images/augment.jpg" > [2]
-Underfull \hbox (badness 10000) in paragraph at lines 37--40
-
- []
-
-[3]
-Underfull \hbox (badness 10000) in paragraph at lines 50--53
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 50--53
-
- []
-
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 62.
+(Font)              <7> on input line 37.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 62.
+(Font)              <5> on input line 37.
+ [3]
+Underfull \hbox (badness 10000) in paragraph at lines 60--63
 
-Underfull \hbox (badness 10000) in paragraph at lines 62--74
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--63
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--105
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--105
 
  []
 
 [4]
 File: images/structure.png Graphic file (type QTm)
  <use  "images/structure.png" >
-Overfull \hbox (9.16617pt too wide) in paragraph at lines 81--82
+Overfull \hbox (9.16617pt too wide) in paragraph at lines 112--113
  [][][] 
  []
 
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 92--94
+Underfull \hbox (badness 10000) in paragraph at lines 123--125
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 95--97
+Underfull \hbox (badness 10000) in paragraph at lines 126--128
 
  []
 
-[6] [7] [8] (./report.aux) ) 
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 139--149
+
+ []
+
+[7] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 794 strings out of 495579
- 9979 string characters out of 6187321
- 59347 words of memory out of 5000000
- 4100 multiletter control sequences out of 15000+600000
- 7933 words of font info for 28 fonts, out of 8000000 for 9000
+ 796 strings out of 495579
+ 10000 string characters out of 6187321
+ 61347 words of memory out of 5000000
+ 4101 multiletter control sequences out of 15000+600000
+ 8241 words of font info for 29 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  27i,6n,24p,724b,209s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on report.pdf (8 pages).
+Output written on report.pdf (7 pages).
