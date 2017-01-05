@@ -142,11 +142,11 @@ public class ClassificationVoteAggregator {
 	        allkeys.add(pdsift.getByteKeypoints(0.005f));
 	    }
 	    
-	    int siftFeatures = 100;//10000
+	    int siftFeatures = 10000;//10000
 	    if (allkeys.size() > siftFeatures)
 	        allkeys = allkeys.subList(0, siftFeatures);
 
-	    ByteKMeans km = ByteKMeans.createKDTreeEnsemble(3);//300
+	    ByteKMeans km = ByteKMeans.createKDTreeEnsemble(300);//300
 	    DataSource<byte[]> datasource = new LocalFeatureListDataSource<ByteDSIFTKeypoint, byte[]>(allkeys);
 	    ByteCentroidsResult result = km.cluster(datasource);
 

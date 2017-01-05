@@ -1,0 +1,82 @@
+\contentsline {section}{\numberline {1}Vision Models}{5}
+\contentsline {subsection}{\numberline {1.1}Physical Model}{5}
+\contentsline {subsection}{\numberline {1.2}Neural Model}{5}
+\contentsline {subsection}{\numberline {1.3}Processing/Psychology}{5}
+\contentsline {section}{\numberline {2}Fourier}{6}
+\contentsline {subsection}{\numberline {2.1}Resolution}{6}
+\contentsline {subsection}{\numberline {2.2}Fourier Transform}{6}
+\contentsline {subsection}{\numberline {2.3}Sampling}{6}
+\contentsline {subsection}{\numberline {2.4}Discrete Fourier Transform}{7}
+\contentsline {subsection}{\numberline {2.5}Applications}{7}
+\contentsline {section}{\numberline {3}Point Operators}{7}
+\contentsline {subsection}{\numberline {3.1}Histogram Equalisation}{7}
+\contentsline {subsection}{\numberline {3.2}Thresholding}{7}
+\contentsline {section}{\numberline {4}Group Operators}{8}
+\contentsline {subsection}{\numberline {4.1}Averaging}{8}
+\contentsline {subsection}{\numberline {4.2}Gaussian Averaging}{8}
+\contentsline {subsection}{\numberline {4.3}Median Averaging}{8}
+\contentsline {subsection}{\numberline {4.4}Mode Operator}{8}
+\contentsline {section}{\numberline {5}Edge Detection}{8}
+\contentsline {section}{\numberline {6}Finding Shapes}{9}
+\contentsline {subsection}{\numberline {6.1}Template Matching}{9}
+\contentsline {subsection}{\numberline {6.2}Hough Transform for lines}{9}
+\contentsline {subsection}{\numberline {6.3}Hough Transform for Circles}{10}
+\contentsline {subsection}{\numberline {6.4}Hough Transform for Ellipses}{10}
+\contentsline {subsection}{\numberline {6.5}Hough Transform for Arbitrary Shapes}{11}
+\contentsline {section}{\numberline {7}Building Machines That See}{11}
+\contentsline {subsection}{\numberline {7.1}Robustness}{12}
+\contentsline {subsection}{\numberline {7.2}Repeatability}{12}
+\contentsline {subsection}{\numberline {7.3}Invariance}{12}
+\contentsline {subsection}{\numberline {7.4}Constraints}{12}
+\contentsline {subsection}{\numberline {7.5}Software Constraints}{12}
+\contentsline {subsection}{\numberline {7.6}Colour Spaces}{12}
+\contentsline {subsection}{\numberline {7.7}Physical Constraints}{13}
+\contentsline {subsection}{\numberline {7.8}Vision in the Wild}{13}
+\contentsline {section}{\numberline {8}Machine Learning for Pattern Recognition}{13}
+\contentsline {subsection}{\numberline {8.1}Classification}{14}
+\contentsline {section}{\numberline {9}Covariance and Principal Components}{15}
+\contentsline {subsection}{\numberline {9.1}Variance and Covariance}{15}
+\contentsline {subsection}{\numberline {9.2}Variance}{16}
+\contentsline {subsection}{\numberline {9.3}Covariance}{16}
+\contentsline {subsection}{\numberline {9.4}Covariance Matrix}{16}
+\contentsline {subsection}{\numberline {9.5}Mean Centring}{16}
+\contentsline {subsection}{\numberline {9.6}Principal Axes of Variation}{16}
+\contentsline {subsection}{\numberline {9.7}Eigenvectors, Eigenvalues and Eigendecomposition}{17}
+\contentsline {subsection}{\numberline {9.8}Ordering}{17}
+\contentsline {subsection}{\numberline {9.9}Principal Component Analysis}{18}
+\contentsline {subsection}{\numberline {9.10}Making it Invariant}{18}
+\contentsline {subsection}{\numberline {9.11}Summary}{19}
+\contentsline {section}{\numberline {10}Types of Image Feature and Segmentation}{19}
+\contentsline {subsection}{\numberline {10.1}Image Feature Morphology}{19}
+\contentsline {subsection}{\numberline {10.2}Global Features}{19}
+\contentsline {subsection}{\numberline {10.3}Image Segmentation}{20}
+\contentsline {subsection}{\numberline {10.4}Adaptive/Local Thresholding}{20}
+\contentsline {subsection}{\numberline {10.5}K-Means}{20}
+\contentsline {subsection}{\numberline {10.6}Advanced Segmentation Techniques}{21}
+\contentsline {subsection}{\numberline {10.7}Connected Components}{21}
+\contentsline {subsection}{\numberline {10.8}The Two-Pass Algorithm}{21}
+\contentsline {subsection}{\numberline {10.9}Summary}{21}
+\contentsline {section}{\numberline {11}Shape Description and Modelling}{22}
+\contentsline {subsection}{\numberline {11.1}Shapes}{22}
+\contentsline {subsection}{\numberline {11.2}Moments}{23}
+\contentsline {subsection}{\numberline {11.3}Boundary Description}{24}
+\contentsline {subsection}{\numberline {11.4}Describing Multiple Shapes}{24}
+\contentsline {subsection}{\numberline {11.5}Point Distribution Models}{24}
+\contentsline {subsection}{\numberline {11.6}Active Appearance Models}{25}
+\contentsline {subsection}{\numberline {11.7}Summary}{25}
+\contentsline {section}{\numberline {12}Local Interest Points}{25}
+\contentsline {subsection}{\numberline {12.1}How to find them}{25}
+\contentsline {subsection}{\numberline {12.2}Harris and Stephens Corner Detector}{26}
+\contentsline {subsection}{\numberline {12.3}Structure Tensor}{26}
+\contentsline {subsection}{\numberline {12.4}Harris and Stephens Detector}{27}
+\contentsline {subsection}{\numberline {12.5}Scale in Computer Vision}{27}
+\contentsline {subsection}{\numberline {12.6}Blob Detection}{28}
+\contentsline {subsection}{\numberline {12.7}Summary}{28}
+\contentsline {section}{\numberline {13}Local Features and Matching}{28}
+\contentsline {subsection}{\numberline {13.1}Robust Local Description}{29}
+\contentsline {subsection}{\numberline {13.2}Template Matching}{30}
+\contentsline {subsection}{\numberline {13.3}Local Intensity Histograms}{30}
+\contentsline {subsection}{\numberline {13.4}Local Gradient Histograms}{30}
+\contentsline {subsection}{\numberline {13.5}The SIFT Feature}{31}
+\contentsline {subsection}{\numberline {13.6}Matching SIFT Features}{31}
+\contentsline {subsection}{\numberline {13.7}Summary}{32}

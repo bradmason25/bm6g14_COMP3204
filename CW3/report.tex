@@ -1,4 +1,5 @@
 \documentclass{article}
+\usepackage[margin=0.8in]{geometry}
 \usepackage{graphicx}
 \graphicspath{{images/}}
 
@@ -34,6 +35,7 @@
 	\subsection{KNN}
 	In my main Run1 class I then implement this. I fetch the training and testing images and split the training images 450:50 for training:testing. I am able to have a training sample this high thanks to the \textit{ImageAugmenter} class we wrote that modifies the training images to increase our resources.
 	I have an \textit{evaluateK} method that trains a \textit{KNNAnnotator} using the \textit{TinyImage} feature vector with the 450 sample, it then tests this for values of K from 1-9. It tests it 5 times with the remaining 50 testing images to collect the accuracy and finds the average. The highest average accuracy K value is then returned.\\
+	\centering
 	\begin{tabular}{|c|c|}
 		\hline
 		K-Value & Accuracy\\ \hline \hline
@@ -47,7 +49,7 @@
 		8 & 0.368\\
 		9 & 0.339\\ \hline
 	\end{tabular}
-	
+	\flushleft
 	I tested this and found a K of 1 to be the most accurate so I implemented this manually in my code to save time, although I have a commented line that will choose the K using the aforementioned method.
 	A new \textit{KNNAnnotator} is then set up with the optimal K and trained using the same 450 training data. I then start a \textit{PrintWriter} and iterate through the testing images provided for the spec, writing to a file the name of the image file and the class that the classifier has predicted.
 	Finally I close the \textit{PrintWriter} and the application ends.
@@ -73,6 +75,7 @@
 	\\
 	I performed a final run using 450 training images per class from the augmented data, and evaluated its performance against a labelled testing set of 50 images per class. This achieved an accuracy of 70.3\%. I then ran the classifier on the unlabelled test data and outputted its results to a file.\\
 	\\Results with Variable Training Sample Size\\
+	\centering
 	\begin{tabular}{|c|c|}
 		\hline
 		Training Sample Size & Accuracy(binsize=7,stepsize=4)\\ \hline \hline
@@ -102,7 +105,7 @@
 		5 & 0.5673 \\
 		6 & 0.56 \\ \hline
 	\end{tabular}
-	
+	\flushleft
 	\section{Run 3}
 	In summary Run 3 sets up a Pyramid Dense SIFT feature extractor and trains it using a KNN algorithm, all from the OpenIMAJ library. It then creates, trains and evaluates each of our classifiers. We have three, it then evaluates once more with each of the trained classifiers predicting the class of each image and voting with weighting based on accuracy. Finally the code iterates through the test images provided, the classifiers each vote for a class and writes the voted class of each to a text file.\\
 	Originally we had four voting classifier however in testing it became apparent that the linear SVM was much less accurate than other classifiers so we thought it was worth removing from the algorithm.
@@ -137,7 +140,7 @@
 	
 	\subsection{The Result}
 	We launched run 3 with the highest parameters we could afford to wait for and had the memory for. We changed the training:testing split to 150:50, which produced the following results:\\
-	\\
+	\centering
 	\begin{tabular}{|c|c|}
 		\hline
 		\textbf{Classifier} & \textbf{Evaluated Accuracy}\\ \hline
@@ -146,7 +149,7 @@
 		Densely Sample Pixel Patches & 0.695\\ \hline \hline
 		Overall & 0.8813\\ \hline
 	\end{tabular}
-	
+	\flushleft
 	\section{Contributions}
 	We kept the workload very even, Bradley coded Run1, Stewart coded Run2 and Rowan coded the image augmenter. We then worked as a group to complete Run3. Each of us contributing to the code, ideas and improvements to make it well structured and more accurate.
 	

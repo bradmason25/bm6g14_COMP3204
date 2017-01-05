@@ -1,0 +1,306 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.4.28)  4 JAN 2017 21:17
+entering extended mode
+**lectureNotes.tex
+(lectureNotes.tex
+LaTeX2e <2014/05/01>
+Babel <3.9l> and hyphenation patterns for 68 languages loaded.
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\size10.clo"
+File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count87
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+(lectureNotes.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+ ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count88
+\scratchdimen=\dimen105
+\scratchbox=\box26
+\nofMPsegments=\count89
+\nofMParguments=\count90
+\everyMPshowfont=\toks15
+\MPscratchCnt=\count91
+\MPscratchDim=\dimen106
+\MPnumerator=\count92
+\makeMPintoPDFobject=\count93
+\everyMPtoPDFconversion=\toks16
+)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 7.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 7.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 7.
+ [1
+
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] (lectureNotes.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 2.
+
+[2])
+\tf@toc=\write3
+ [3] [4]
+Underfull \hbox (badness 10000) in paragraph at lines 15--20
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 15--20
+
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 21.
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 21.
+
+Overfull \hbox (2.04895pt too wide) in paragraph at lines 31--33
+\OT1/cmr/m/n/10 Actions hap-pen in both the \OT1/cmr/bx/n/10 oc-cip-i-tal \OT1/
+cmr/m/n/10 cor-tex and the \OT1/cmr/bx/n/10 as-so-cia-tive \OT1/cmr/m/n/10 cor-
+tex. Within
+ []
+
+[5] [6]
+Overfull \hbox (0.29695pt too wide) in paragraph at lines 60--62
+\OT1/cmr/m/n/10 We need this to be au-to-matic, for in-stance in-ten-sity nor-m
+al-i-sa-tion. This smooths
+ []
+
+[7] [8] <images/houghtransform.png, id=44, 942.52126pt x 369.38pt>
+File: images/houghtransform.png Graphic file (type png)
+
+<use images/houghtransform.png>
+Package pdftex.def Info: images/houghtransform.png used on input line 104.
+(pdftex.def)             Requested size: 367.58182pt x 144.05762pt.
+
+Overfull \hbox (22.58182pt too wide) in paragraph at lines 102--107
+[] 
+ []
+
+[9 <./images/houghtransform.png (PNG copy)>] [10]
+<images/rtableconstruct.png, id=52, 1448.41125pt x 798.985pt>
+File: images/rtableconstruct.png Graphic file (type png)
+
+<use images/rtableconstruct.png>
+Package pdftex.def Info: images/rtableconstruct.png used on input line 145.
+(pdftex.def)             Requested size: 359.2067pt x 198.14867pt.
+
+Overfull \hbox (14.2067pt too wide) in paragraph at lines 145--148
+[]
+ []
+
+[11 <./images/rtableconstruct.png (PNG copy)>] [12] [13] [14] [15]
+Underfull \hbox (badness 10000) in paragraph at lines 267--273
+
+ []
+
+[16]
+Underfull \hbox (badness 10000) in paragraph at lines 275--280
+
+ []
+
+
+Overfull \hbox (14.08403pt too wide) in paragraph at lines 286--287
+\OT1/cmr/m/n/10 Standard Eigen-de-com-po-si-tion im-ple-men-ta-tions will or-de
+r the eigen-vec-tors (columns
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 288--293
+
+ []
+
+[17]
+Underfull \hbox (badness 10000) in paragraph at lines 303--307
+
+ []
+
+[18]
+Underfull \hbox (badness 10000) in paragraph at lines 313--317
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 322--325
+
+ []
+
+[19]
+Underfull \hbox (badness 10000) in paragraph at lines 326--331
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 326--331
+
+ []
+
+[20] [21]
+Underfull \hbox (badness 10000) in paragraph at lines 364--369
+
+ []
+
+[22]
+Underfull \hbox (badness 10000) in paragraph at lines 386--390
+
+ []
+
+<images/hu_moments.png, id=92, 612.78937pt x 225.09094pt>
+File: images/hu_moments.png Graphic file (type png)
+
+<use images/hu_moments.png>
+Package pdftex.def Info: images/hu_moments.png used on input line 392.
+(pdftex.def)             Requested size: 245.1114pt x 90.03477pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 390--395
+
+ []
+
+[23 <./images/hu_moments.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 412--417
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 412--417
+
+ []
+
+[24] <images/corner_shift.png, id=101, 652.68843pt x 179.92218pt>
+File: images/corner_shift.png Graphic file (type png)
+
+<use images/corner_shift.png>
+Package pdftex.def Info: images/corner_shift.png used on input line 430.
+(pdftex.def)             Requested size: 345.0pt x 95.10571pt.
+ [25]
+<images/harris_math.png, id=106, 638.385pt x 139.27031pt>
+File: images/harris_math.png Graphic file (type png)
+
+<use images/harris_math.png>
+Package pdftex.def Info: images/harris_math.png used on input line 437.
+(pdftex.def)             Requested size: 345.0pt x 75.26434pt.
+
+<images/structure_tensor.png, id=107, 515.67656pt x 103.88812pt>
+File: images/structure_tensor.png Graphic file (type png)
+
+<use images/structure_tensor.png>
+Package pdftex.def Info: images/structure_tensor.png used on input line 442.
+(pdftex.def)             Requested size: 345.0pt x 69.5048pt.
+ [26 <./images/corner_shift.png> <./images/harris_math.png> <./images/structure
+_tensor.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 453--457
+
+ []
+
+[27]
+Underfull \hbox (badness 10000) in paragraph at lines 465--471
+
+ []
+
+[28] [29] <images/gradient_histogram.png, id=125, 273.27094pt x 331.2375pt>
+File: images/gradient_histogram.png Graphic file (type png)
+
+<use images/gradient_histogram.png>
+Package pdftex.def Info: images/gradient_histogram.png used on input line 521.
+(pdftex.def)             Requested size: 137.9979pt x 167.27107pt.
+
+<images/histogram_rotation.png, id=126, 543.53062pt x 123.46124pt>
+File: images/histogram_rotation.png Graphic file (type png)
+
+<use images/histogram_rotation.png>
+Package pdftex.def Info: images/histogram_rotation.png used on input line 523.
+(pdftex.def)             Requested size: 345.0pt x 78.36874pt.
+ [30] [31 <./images/gradient_histogram.png> <./images/histogram_rotation.png>] 
+[32] (lectureNotes.aux) ) 
+Here is how much of TeX's memory you used:
+ 1195 strings out of 493698
+ 16087 string characters out of 3144415
+ 74960 words of memory out of 3000000
+ 4545 multiletter control sequences out of 15000+200000
+ 8718 words of font info for 31 fonts, out of 3000000 for 9000
+ 1025 hyphenation exceptions out of 8191
+ 27i,8n,20p,643b,215s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
+ts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
+bx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx8.pfb>
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Prog
+ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program File
+s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Program Files/MiKTeX 
+2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.9/fonts
+/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsf
+onts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+mr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr5.pfb><
+C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program
+ Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmsy5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10
+.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on lectureNotes.pdf (32 pages, 626724 bytes).
+PDF statistics:
+ 204 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+
