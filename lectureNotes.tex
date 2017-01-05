@@ -532,4 +532,79 @@
 	\subsection{Summary}
 	Features extracted around interest points have lots of practical uses in computer vision.\\
 	Matching scenarios basically fall into two categories. \textbf{Narrow-baseline} where the difference in images is slight, local image templates are often suitable descriptors. \textbf{Wide-baseline} where there are bigger differences in pose, gradient histogram descriptors are good here, especially \textbf{SIFT}.
+	
+	\section{Consistent Matching}
+	When it comes to finding matching interest points across images we need a way to eliminate mismatches. Even the most advanced local feature can be prone to being mismatched because there is always a trade-off in feature distinctiveness. If it's too distinctive it won't match with subtle variation due to noise but if it's not distinctive enough it will match everything.\\
+	We can use \textbf{Constrained matching} where we assume we are given a number of correspondences between the interest points in a pair of images. Would it then be possible to estimate which of the correspondences are \textbf{inliers}\footnote{correct} or \textbf{outliers}\footnote{incorrect} and what assumptions would we need to make?\\
+	By assuming a geometric mapping between the two scenes can we recover that mapping and eliminate the mismatches?
+	\subsection{Geometric Mapping}
+	There are different types of \textbf{geometric transforms}:
+	\begin{itemize}
+		\item Point Transform
+		\subitem $x'=Tx$
+		\subitem T is the transform matrix
+		\item Affine Transform
+		\subitem $x'=Ax+b$
+		\subitem \includegraphics[width=0.2\linewidth]{affine_A}
+		\subitem It is convenient to simplify this to
+		\subitem \includegraphics[width=0.2\linewidth]{affine_B}
+		\item Translation
+		\subitem \includegraphics[width=0.3\linewidth]{translation}
+		\item Translation and Rotation
+		\subitem \includegraphics[width=0.3\linewidth]{rotation}
+		\item Scaling
+		\subitem \includegraphics[width=0.2\linewidth]{scale}
+		\item Aspect Ration
+		\subitem \includegraphics[width=0.2\linewidth]{aspect}
+		\item Shear
+		\includegraphics[width=0.2\linewidth]{shear}
+	\end{itemize}
+	So the \textbf{Affine Transform }has 6 DoF: translation, rotation, scale, aspect ration and shear!\\
+	A \textbf{Similarity Transform}, however, only has 4 DoF: translation, rotation and scale.\\
+	We can add an additional degree of freedom by normalising with $w$ so that the transformed vector is $[\cdot,\cdot,1]$, $x'=u/w\quad y'=v/w$.\\
+	There's some slide that says \textbf{Homogeneous coordinates} whatever that means and it has a 1x3 vertical matrix that goes wx' then wy' then w. It's in lecture slides 8 just take a look.
+	\subsection{Recovering a Geometric Mapping}
+	It is possible to estimate a transform matrix from a set of point matches by solving a set of simultaneous equations. You need at least 4 point matches to solve a Homography or 3 to solve an affine transform.\\
+	We don't need to know the solution but rather that in the presence of noise, and with potentially more matches than required, that we have to solve an \textit{overdetermined system}. We need to seek the minimum error or \textbf{least-squares} solution.
+	\subsection{Least-Squares}
+	\includegraphics[width=\linewidth]{least_squares}
+	I'm jsut going to have to look through these slides I don't understand what's going on without explanation.
+	\subsection{Robust Estimation}
+	The problem is noisy data, we need a way to deal with estimating a model in the presence of high amounts of noise\footnote{mis-matches}.\\
+	Least-squares will be highly suboptimal and will probably find a very bad solution. Ideally we want to identify correct data and the bad data, then estimate the model using only the good data.\\
+	The problem of learning a model in the presence of inliers and outliers comes under an area of mathematics called \textbf{robust estimation} or \textbf{robust model fitting}. There are a number of techniques but we'll see one of the simplest.
+	\subsection{RANSAC}
+	\textbf{RAndom SAmple Consensus}\\
+	Assume that M data items required to estimate model T and that there are N data items in total.\\
+	Algorithm:
+	\begin{enumerate}
+		\item Select M data items at random
+		\item estimate model T
+		\item find how many of the N data items fit T within tolerance \textit{tol}, call this K\footnote{basically compute how many times the absolute residual is less than tol}. The points that have an absolute residual less than \textit{tol} are the inliers; the other points are outliers.
+		\item if K is large enough, either accept T, or compute least-squares estimate using all inliers, and exit with success.
+		\item repeat 1..4 n iterations
+		\item fail - no good T fit of data
+	\end{enumerate}
+	\subsection{Further Applications of Robust Local Matching}
+	\textbf{Object Recognition}, the image of the object is matched against the scene, and recognised if there is a consistent match.\\
+	\textbf{Augmented Reality}, the data can be added to a scene on the basis of the match.\\
+	It's possible to estimate depth, and ultimately build a complete 3D scene from sets of point correspondences formed from matching local features.\\
+	\\
+	Image features can also be used to match music! This is how Shazam works, a recording of a piece of music can be turned into a picture called a spectrogram. Local image features can be extracted, described and matched from the spectrogram images.
+	\subsection{Problems with Direct Local Feature Matching}
+	A typical 800x600 image might have about 2000 DoG interest points/SIFT descriptors. Each SIFT descriptor is 128 dimensions, now assume you want to match a query image against a database of images, the distance between every query feature and every other feature needs to be calculated. Can this be optimised?
+	\subsection{K-D Trees}
+	These have a binary tree structure that partitions the space along axis-aligned hyperplanes, typically take each dimension in turn and splits on the median of the points in the enclosing partition. It then stops after a certain depth, or when the number of points in a leaf is less than a threshold.\\
+	\includegraphics[width=\linewidth]{kd}
+	You search by walking down the tree until a leaf is hit, and then brute-force search to find the best leaf. This isn't guaranteed to be the best though, you have to walk back up the tree and only stop once a root is reached\footnote{You do not have to check a subtree if it's clear it's further than the current best}.\\
+	The problems are that it doesn't scale well to high dimensions as you tend to need to search most of the tree, and these are \textit{approximate} versions that won't necessarily return the exact answer that does scale if you don't mind the potential for mismatch.
+	\subsection{Hashing}
+	LSH (Local Sensitive Hashing) creates hash codes for vectors such that similar vectors have similar codes.
+	\subsection{Sketching}
+	A technique called sketching concatenates binary hashes into a bit string, with the correct LSH function, the Hamming distance between a pair of sketches is proportional to the Euclidean distance between the original vectors.\\
+	You can easily compress SIFT features to 128 bits, the Hamming distance computation is cheap because it uses lookup tables and bitwise operations.
+	\subsection{Summary}
+	Inconsistent local feature matches can be removed assuming some form of constraint holds between the two images, this is usually a geometric mapping using affine transform or homography. It can be estimates by finding the least-squares solution of a set of simultaneous equations.\\
+	Robust methods such as RANSAC allow inliers and outliers to be determined whilst learning the mapping.\\
+	Interest point mapping is slow but K-D trees and Hashing can help.
 \end{document}

@@ -80,3 +80,5 @@
 \contentsline {subsection}{\numberline {13.5}The SIFT Feature}{31}
 \contentsline {subsection}{\numberline {13.6}Matching SIFT Features}{31}
 \contentsline {subsection}{\numberline {13.7}Summary}{32}
+\contentsline {section}{\numberline {14}Consistent Matching}{32}
+\contentsline {subsection}{\numberline {14.1}Geometric Mapping}{32}
