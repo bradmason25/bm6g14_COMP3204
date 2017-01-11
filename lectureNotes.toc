@@ -82,3 +82,20 @@
 \contentsline {subsection}{\numberline {13.7}Summary}{32}
 \contentsline {section}{\numberline {14}Consistent Matching}{32}
 \contentsline {subsection}{\numberline {14.1}Geometric Mapping}{32}
+\contentsline {subsection}{\numberline {14.2}Recovering a Geometric Mapping}{33}
+\contentsline {subsection}{\numberline {14.3}Least-Squares}{34}
+\contentsline {subsection}{\numberline {14.4}Robust Estimation}{34}
+\contentsline {subsection}{\numberline {14.5}RANSAC}{34}
+\contentsline {subsection}{\numberline {14.6}Further Applications of Robust Local Matching}{35}
+\contentsline {subsection}{\numberline {14.7}Problems with Direct Local Feature Matching}{35}
+\contentsline {subsection}{\numberline {14.8}K-D Trees}{35}
+\contentsline {subsection}{\numberline {14.9}Hashing}{36}
+\contentsline {subsection}{\numberline {14.10}Sketching}{36}
+\contentsline {subsection}{\numberline {14.11}Summary}{36}
+\contentsline {section}{\numberline {15}Image Search and Bag of Visual Words}{37}
+\contentsline {subsection}{\numberline {15.1}Text Information Retrieval}{37}
+\contentsline {subsubsection}{\numberline {15.1.1}The Vector-Space Model}{37}
+\contentsline {subsection}{\numberline {15.2}Vector Quantisation}{38}
+\contentsline {subsection}{\numberline {15.3}Visual Words}{38}
+\contentsline {subsection}{\numberline {15.4}Content-Based Image Retrieval}{38}
+\contentsline {section}{\numberline {16}Image Classification}{39}

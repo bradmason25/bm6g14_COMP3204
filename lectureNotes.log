@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/Debian) (preloaded format=xelatex 2016.11.10)  5 JAN 2017 18:55
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/Debian) (preloaded format=xelatex 2016.11.10)  10 JAN 2017 16:27
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -229,15 +229,53 @@ File: images/affine_A.png Graphic file (type QTm)
 
 <use  "images/affine_A.png" > [32]
 File: images/affine_B.png Graphic file (type QTm)
- <use  "images/affine_B.png" > [33]
-(./lectureNotes.aux) ) 
+ <use  "images/affine_B.png" >
+File: images/translation.png Graphic file (type QTm)
+
+<use  "images/translation.png" >
+File: images/rotation.png Graphic file (type QTm)
+ <use  "images/rotation.png" >
+File: images/scale.png Graphic file (type QTm)
+
+<use  "images/scale.png" >
+File: images/aspect.png Graphic file (type QTm)
+ <use  "images/aspect.png" >
+File: images/shear.png Graphic file (type QTm)
+
+<use  "images/shear.png" >
+File: images/least_squares.png Graphic file (type QTm)
+ <use  "images/least_squares.png" > [33] [34]
+Underfull \hbox (badness 10000) in paragraph at lines 589--594
+
+ []
+
+File: images/kd.png Graphic file (type QTm)
+<use  "images/kd.png" > [35]
+Overfull \hbox (0.50049pt too wide) in paragraph at lines 613--615
+\OT1/cmr/m/n/10 In text pro-cess-ing the words are to-kenised, stop words are r
+e-moved, it is stemmed
+ []
+
+[36]
+File: images/doc_meaning.png Graphic file (type QTm)
+ <use  "images/doc_meaning.png" > [37]
+Underfull \hbox (badness 10000) in paragraph at lines 626--630
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 643--647
+
+ []
+
+[38] [39] (./lectureNotes.aux) ) 
 Here is how much of TeX's memory you used:
- 833 strings out of 495579
- 10758 string characters out of 6187321
+ 849 strings out of 495579
+ 11000 string characters out of 6187321
  62347 words of memory out of 5000000
- 4124 multiletter control sequences out of 15000+600000
+ 4132 multiletter control sequences out of 15000+600000
  8718 words of font info for 31 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 27i,8n,24p,643b,215s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,8n,24p,643b,218s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on lectureNotes.pdf (33 pages).
+Output written on lectureNotes.pdf (39 pages).

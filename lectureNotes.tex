@@ -607,4 +607,41 @@
 	Inconsistent local feature matches can be removed assuming some form of constraint holds between the two images, this is usually a geometric mapping using affine transform or homography. It can be estimates by finding the least-squares solution of a set of simultaneous equations.\\
 	Robust methods such as RANSAC allow inliers and outliers to be determined whilst learning the mapping.\\
 	Interest point mapping is slow but K-D trees and Hashing can help.
+	
+	\section{Image Search and Bag of Visual Words}
+	\subsection{Text Information Retrieval}
+	A bag is an \textbf{unordered} data structure like a set, but which unlike a set allows elements to be inserted multiple times.\\
+	In text processing the words are tokenised, stop words are removed, it is stemmed and then put into the bag of words.
+	\subsubsection{The Vector-Space Model}
+	You model each document and query by a vector. You assume that "close" documents have similar meaning and use standard similarity measures to rank each document to a query.\\
+	The \textbf{lexicon}/vocabulary is the set of all processed words across all documents in the system. We can create vectors for each document with as many dimensions as there are words in the lexicon. Each vector is a histogram of the word occurrences in the document. Vectors will have a high number of dimensions but be very sparse.\\
+	A good way to compare meaning is to use a graph with the cosine similarity.\\
+	\includegraphics[width=\linewidth]{doc_meaning}
+	They use \textbf{inverted indexes} because the word is the key and locations within documents are the values.\\
+	The number of times a word appears in a document reflects its importance. If a term appears many times in many documents it isn't important because it doesn't give us meaning whereas if a word is rare in documents but common in a particular document then it is important only within that document which gives meaning.\\
+	Weighting schemes are binary, frequency and TF-IDF\footnote{Term Frequency - Inverse Document Frequency} which uses both frequency in the document and inverse frequency which gives a higher value for rarity in other documents or low for common words.
+	\subsection{Vector Quantisation}
+	Lossy data compression. Uses k-means like approach where the centroid is the meaning. This is called a \textbf{codebook}.
+	\subsection{Visual Words}
+	We can vector quantise SIFT descriptors, we replace each descriptor with a representative vector called a \textbf{visual word}. It describes a small image patch with a certain pattern of pixels. The codebook is the visual equivalent of a lexicon.\\
+	We can then put these visual words into a bag, a \textbf{Bag of Visual Words}. In essence this ignores where in the image the local features came from and the scale.\\
+	\\
+	The \textbf{size of the vocabulary} is the key parameter, if it is too small the vectors look the same and is therefore not distinctive. If it is too big the same visual words might never appear twice which is too distinctive.
+	\subsection{Content-Based Image Retrieval}
+	You can apply all text based methods to images using the BoVW method. Including searching image similarity by histogram of the BoVW.\\
+	Inverted indexes only give a performance boost if vectors are sparse. Due to the size of the vocabulary needed which implies a huge codebook. This means you need to use k-means to learn potentially 1 million clusters in 128 dimensions, 10's of millions of features. Can use approximate methods like approximate k-d trees.\\
+	Overall BoVW build system:
+	\begin{itemize}
+		\item Collect corpus of images that are to be indexed and made searchable
+		\item Extract local features from each image
+		\item Learn a large codebook from a sample of the features
+		\item Vector quantise the features and build BoVW representations for each image
+		\item Construct inverted index BoVW representations
+	\end{itemize}
+	
+	\section{Image Classification}
+	 For machine learning the codebook vocabulary needs to be much smaller for performance and effectiveness.\\
+	 This means it allows visual words to be less distinctive allowing more variation between matching features.\\
+	 \\
+	 BoVW histograms allow the potential for linear classifiers and SVMs.
 \end{document}
